@@ -1,0 +1,20 @@
+{
+    "name": "komparu/backend",
+    "description": "backend api",
+    "type": "project",
+    "require": {
+        "fzaninotto/faker": "^1.7"
+    },
+    "authors": [
+        {
+            "name": "Michal Radecki",
+            "email": "odrzutowiec@gmail.com"
+        }
+    ],
+    "scripts": {
+        "start": "php -S 0.0.0.0:8080 -t ./ index.php"
+    },
+    "config": {
+        "process-timeout": 0
+    }
+}
