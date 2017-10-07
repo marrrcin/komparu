@@ -20,7 +20,7 @@ const api = (action, state={
   data: [],
 }) => {
   if (action.type.endsWith('_LOADING')) {
-    return {loading: true, error: false, data: ]}
+    return {loading: true, error: false, data: []}
   }
   if (action.type.endsWith('_FINISHED')) {
     return {loading: false, error: false, data: action.payload}
