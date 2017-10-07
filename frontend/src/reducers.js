@@ -1,5 +1,5 @@
 import {combineReducers} from './store'
-import {PRODUCTS_PAGE, PRODUCTS_GENERATE}  from './actions'
+import {PRODUCTS_PAGE, PRODUCTS_GENERATE, PRODUCTS_DELETE}  from './actions'
 
 /**
  * Higher order reducer for filtering action types.
@@ -36,5 +36,6 @@ const api = (action, state={
  */
 export default combineReducers({
   products: filter(PRODUCTS_PAGE, api),
-  generate: filter(PRODUCTS_GENERATE, api)
+  generate: filter(PRODUCTS_GENERATE, api),
+  delete: filter(PRODUCTS_DELETE, api)
 })

@@ -19,7 +19,7 @@ const API_ENDPOINT = 'http://localhost:8080'
  * healthy.
  */
 export const api = (uri, method = 'GET', params) =>
-  fetch(API_ENDPOINT+uri, {...fetchInit, ...params, method: 'GET'})
+  fetch(API_ENDPOINT+uri, {...fetchInit, ...params, method})
     .then(result => {
       if (result.ok) {
         return result.json()

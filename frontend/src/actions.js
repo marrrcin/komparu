@@ -2,6 +2,7 @@ import {api} from './api'
 
 export const PRODUCTS_PAGE = 'PRODUCTS_PAGE'
 export const PRODUCTS_GENERATE = 'PRODUCTS_GENERATE'
+export const PRODUCTS_DELETE = 'PRODUCTS_DELETE'
 
 /**
  * Api action helper.
@@ -24,3 +25,9 @@ export const productsLoadPage = () =>
  */
 export const productsGeneratePage = () =>
   apiAction(api('/generate'), PRODUCTS_GENERATE)
+
+/**
+ * Delete proucts.
+ */
+export const productsDelete = () =>
+  apiAction(api('/', 'DELETE'), PRODUCTS_DELETE)

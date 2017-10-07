@@ -40,15 +40,11 @@ call_user_func(function() {
   // Delete action, deletes all data.
   delete('/', function(){
     $_SESSION['data'] = [];
-    return ok($_SESSION['data']);
+    return ok(true);
   });
 
   // Index action.
   get('/', function() use ($data) {
-    // If session is empty, redirecto to generate action.
-    if(empty($data)) {
-      return call_user_func(see_other('/generate'));
-    }
     return ok($data);
   });
 
