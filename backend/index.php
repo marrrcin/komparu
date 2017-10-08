@@ -45,7 +45,12 @@ call_user_func(function() {
 
   // Index action.
   get('/', function() use ($data) {
-    return ok($data);
+    $page = $_GET['page'] ? (int) $_GET['page'] : 0;
+    $size = $_GET['size'] ? (int) $_GET['size'] : 20;
+    if (!is_int($page) || !is_int($size)) {
+      return bad_request('Page and size GET parameters have to be ints.');
+    }
+    return ok(pages($data, $page, $size));
   });
 
   // Default bad request action if nothing elese kicked in.
@@ -61,7 +66,8 @@ function generate_fake_data() {
   // I'm too lazy, generate fake data on the fly.
   $faker = Faker\Factory::create();
   $faker->addProvider(new Faker\Provider\Image($faker));
-  for ($i = 1; $i <= 100; $i++) {
+  $count = $faker->numberBetween(50, 500);
+  for ($i = 0; $i <= $count; $i++) {
     $data[] = [
       'id' => $i,
       'name' => ucwords($faker->words(3, true)),
@@ -72,6 +78,32 @@ function generate_fake_data() {
     ];
   }
   return $data;
+}
+
+/**
+ * Generate paged content
+ *
+ * @param array $data
+ * @return array
+ */
+function pages($data, $page, $size) {
+  $dataCount = count($data);
+  $size = ($size > 1)
+    ? ($size > $dataCount) ? $dataCount : $size
+    : 1;
+  $total = @ceil($dataCount / $size);
+  $page = ($page > 0)
+    ? ($page > $total-1) ? $total-1 : $page
+    : 0;
+  $offset = $page * $size;
+  return [
+    'total' => $total,
+    'page' => $page,
+    'items' => array_slice($data, $offset, $size),
+    'offset' => $offset,
+    'size' => $size,
+    'count' => $dataCount,
+  ];
 }
 
 /**
@@ -88,6 +120,13 @@ function response($code, $data=null) {
   return function() use ($code, $data) {
     // Set HTTP response code.
     http_response_code($code);
+    // For error responses have unified structure.
+    if ($code >= 300) {
+      $data = [
+        'error' => true,
+        'message' => $data,
+      ];
+    }
     // Echo response body. Headers are aready set, rest will be taken care of 
     // by output buffering.
     echo json_encode($data);
@@ -156,12 +195,18 @@ function see_other($url) {
  * @return string|void
  */
 function request($method, $uri, $callback) {
-  // Prepare the regex.
-  $regex = str_replace('*', '(.+)', $uri);
+  // Prepare server path
+  $path = $_SERVER['REQUEST_URI'];
+  $path = parse_url($path, PHP_URL_PATH);
+  $path = trim($path, '/');
+  // Prepare regex
+  $regex = $uri;
+  $regex = trim($regex, '/');
+  $regex =  $regex = str_replace('*', '(.*)', $regex);
   $regex = '/^' . str_replace('/', '\/', $regex) . '$/';
-  // Make sure our method and uri matches.
+  // Make sure our method and path matches.
   if (
-    !preg_match($regex, $_SERVER['REQUEST_URI'], $uri_matches)
+    !preg_match($regex, $path, $uri_matches)
     || $_SERVER['REQUEST_METHOD'] !== $method
   ) {
     return;

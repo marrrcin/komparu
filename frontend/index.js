@@ -3,6 +3,7 @@ import {
 } from './src/store'
 import {renderTo} from './src/render'
 
+import  './src/style.less'
 import reducer from './src/reducers'
 import {App} from './src/componenets'
 

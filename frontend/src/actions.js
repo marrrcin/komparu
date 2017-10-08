@@ -17,8 +17,8 @@ export const apiAction = (fetchRequest, actionType) => dispatch => {
 /**
  * Loads a page of proucts.
  */
-export const productsLoadPage = () =>
-  apiAction(api('/'), PRODUCTS_PAGE)
+export const productsLoadPage = (page=0, size=60) =>
+  apiAction(api(`/?page=${page}&size=${size}`), PRODUCTS_PAGE)
 
 /**
  * Generate a page of proucts.

@@ -38,6 +38,9 @@ export function renderTo(target, tree) {
  * Render function renders a given element and returns a dom node.
  */
 export function render(element) {
+  if (element === null) {
+    return null
+  }
   if (typeof element === 'object' && Array.isArray(element)) {
     return renderArray(element)
   }
@@ -105,7 +108,9 @@ function renderObject(element) {
   // If any children were defined go deeper and render them too.
   if (element.children) {
     const childNode = render(element.children)
-    node.appendChild(render(element.children))
+    if (childNode) {
+      node.appendChild(childNode)
+    }
   }
   return node
 }

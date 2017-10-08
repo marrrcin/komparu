@@ -37,5 +37,5 @@ const api = (action, state={
 export default combineReducers({
   products: filter(PRODUCTS_PAGE, api),
   generate: filter(PRODUCTS_GENERATE, api),
-  delete: filter(PRODUCTS_DELETE, api)
+  deletes: filter(PRODUCTS_DELETE, api)
 })

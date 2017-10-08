@@ -18,13 +18,13 @@ const API_ENDPOINT = 'http://localhost:8080'
  * Small abstratctiob from fetch API. Little bit of abastraction is always 
  * healthy.
  */
-export const api = (uri, method = 'GET', params) =>
+export const api = (uri, method = 'GET', params) => 
   fetch(API_ENDPOINT+uri, {...fetchInit, ...params, method})
     .then(result => {
       if (result.ok) {
         return result.json()
       }
       else {
-        return result.text().then(error => {throw error})
+        return result.json().then(error => {throw error})
       }
     })

@@ -30,12 +30,26 @@ module.exports = {
             }]
           ]
         }
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
+      },
+      {
+        test: /\.(less|css)$/,
+        use: [{
+          loader: 'style-loader'
+        }, {
+          loader: 'css-loader'
+        }, {
+          loader: 'less-loader'
+        }]
       }
     ]
   },
   devtool: 'inline-source-map',
   plugins: [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({template: './index.html'}),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({name: 'common'})
   ],
