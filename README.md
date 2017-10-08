@@ -7,7 +7,10 @@
 1. [NPM 5.4.2](npmjs.com)
 
 ## how to run
-1. One command magic: ```./run.sh```
+1. One command magic:
+  ```sh
+  git clone git@github.com:odrzutowiec/komparu.git komparu; cd komparu; ./run.sh
+  ```
 1. Run only backend following [these](backend/README.md) instructions.
 1. Run only frontend following [these](frontend/README.md) instructions.
 
