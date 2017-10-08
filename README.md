@@ -1,5 +1,7 @@
 # Komparu test project
 
+![screen](screen.jpg)
+
 ## prerequisites
 1. [PHP 5.6](http://php.net/)
 1. [Composer 1.5.2](https://getcomposer.org/)
