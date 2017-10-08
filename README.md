@@ -2,9 +2,9 @@
 
 ## prerequisites
 1. [PHP 5.6](http://php.net/)
-1. [Composer 1.5.2](https://getcomposer.org)
+1. [Composer 1.5.2](https://getcomposer.org/)
 1. [Node 8.6](https://nodejs.org/)
-1. [NPM 5.4.2](npmjs.com)
+1. [NPM 5.4.2](https://www.npmjs.com/)
 
 ## how to run
 1. One command magic:
